@@ -1,0 +1,8 @@
+---
+# for geerlingguy.java
+java_packages:
+  - 'java-1.8.0-openjdk'
+
+tomcat_archive_name: "apache-tomcat-8.0.46"
+tomcat_archive_name_ext: ".tar.gz"
+tomcat_archive_url: "http://www-eu.apache.org/dist/tomcat/tomcat-8/v8.0.46/bin"

@@ -1,18 +1,23 @@
 ---
-# extra repositories
-  - name: EPEL Repository
-    yum:
-      name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-      state: present
+- hosts: all
+  gather_facts: yes
+  become: yes
 
-  - name: Webtatic repository
-    yum:
-      name: https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
-      state: present
+  tasks:
+  # extra repositories
+    - name: EPEL Repository
+      yum:
+        name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+        state: present
 
-# install more packages
-  - name: Install packages
-    yum:
-      name: '{{item}}'
-      state: present
-    with_items: '{{yum_install_packages}}'
+    - name: Webtatic repository
+      yum:
+        name: https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
+        state: present
+
+  # install more packages
+    - name: Install packages
+      yum:
+        name: '{{item}}'
+        state: present
+      with_items: '{{yum_install_packages}}'

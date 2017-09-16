@@ -1,8 +1,5 @@
 ---
-- hosts: all
-  gather_facts: yes
-  become: yes
-
-  tasks:
-    # install packages
-    - include: yum.yml
+- include: yum.yml
+- include: lb.yml
+- include: web.yml
+- include: app.yml

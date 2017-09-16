@@ -1,2 +1,3 @@
 # requirements
-- src: geerlingguy.haproxy
+- src: geerlingguy.java
+- src: git+https://github.com/FlxPeters/ansible-role-tomcat8.git

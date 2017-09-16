@@ -1,3 +1,16 @@
 ---
-yum_install_packages:
-  - git
+
+# haproxy
+haproxy_frontend_name: 'hafrontend'
+haproxy_frontend_bind_address: '*'
+haproxy_frontend_port: 80
+haproxy_frontend_mode: 'http'
+
+haproxy_backend_name: 'habackend'
+haproxy_backend_mode: 'http'
+haproxy_backend_balance_method: 'roundrobin'
+haproxy_backend_httpchk: 'HEAD / HTTP/1.1\r\nHost:localhost'
+
+haproxy_backend_servers:
+  - name: web
+    address: hostvars['web']['ansible_' + iface].ipv4.address }}:443

@@ -1,9 +1,1 @@
 ---
-yum_install_packages:
-  - git
-  - httpd
-  - php71w-fpm
-  - php71w-opcache
-  - php71w-common
-  - php71w-mysql
-  - php71w-pear

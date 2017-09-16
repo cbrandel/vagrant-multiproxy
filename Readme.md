@@ -3,6 +3,12 @@ multiproxy
 
 Vagrant configuration for a 3 box environment with which a multi-Reverse-Proxy setup can be tested.
 
+Inspired by the following fine projects, which use Vagrant/ansible:
+
+- https://github.com/ansible/ansible-examples
+- https://roots.io/trellis/
+- https://github.com/geerlingguy/ansible-role-haproxy
+
 # Requirements
 Vagrant Plugins:
 - vagrant-hostmanager

@@ -1,0 +1,8 @@
+---
+- hosts: appservers
+  gather_facts: yes
+  become: yes
+  roles:
+    - geerlingguy.java
+    - web
+    - app

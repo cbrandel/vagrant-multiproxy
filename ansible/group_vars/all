@@ -1,1 +1,6 @@
 ---
+yum_install_packages:
+  - git
+
+web_httpd_port: 443
+app_httpd_port: 443
