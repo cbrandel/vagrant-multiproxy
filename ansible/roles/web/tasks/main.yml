@@ -53,6 +53,13 @@
     state: absent
     path: "/etc/httpd/conf.d/ssl.conf"
 
+- name: "open httpd log directory"
+  file:
+    state: directory
+    path: "/var/log/httpd"
+    recurse: false
+    mode: "g+rx,o+rx"
+
 - meta: flush_handlers
 
 - name: http service state

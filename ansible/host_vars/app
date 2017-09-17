@@ -20,6 +20,7 @@ apache_vhosts:
       - php
       - java
     extra_parameters: |
+      LogLevel debug
       RemoteIPHeader X-Forwarded-For
       RemoteIPInternalProxy 192.168.50.1
       RemoteIPInternalProxy 192.168.50.30
@@ -27,8 +28,8 @@ apache_vhosts:
       RemoteIPInternalProxy 192.168.50.32
       ProxyRequests Off
       ProxyPreserveHost Off
-      ProxyPass /java/ ajp://localhost:8009/
-      ProxyPassReverse /java/ ajp://localhost:8009/
+      ProxyPass /java/ ajp://localhost:8009/java/
+      ProxyPassReverse /java/ ajp://localhost:8009/java/
 
 apache_state: stopped
 apache_restart_state: stopped
