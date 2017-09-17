@@ -3,6 +3,8 @@ multiproxy
 
 Vagrant configuration for a 3 box environment with which a multi-Reverse-Proxy setup can be tested.
 
+This is just a playground to fiddle around with a few Vagrant boxes, haproxy, httpd, and tomcat.
+
 # Requirements
 Vagrant Plugins:
 - vagrant-hostmanager
@@ -16,7 +18,7 @@ Architecture is:
 ## lb
 Loadbalancer machine
 
-https://mysite/
+http://mysite/
 
 Installed packages:
 - haproxy
@@ -36,7 +38,10 @@ Installed packages:
 - apache httpd
 - apache tomcat
 - Java 1.8
-- ServerTester Webapp (https://github.com/cbrandel/ServerTester.git)
+- webapp-tester Webapp (https://github.com/cbrandel/webapp-tester)
+
+### TODO
+add SSL to loadbalancer
 
 ### Acknowledgements
 
