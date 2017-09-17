@@ -43,6 +43,9 @@ Installed packages:
 ### TODO
 add SSL to loadbalancer
 
+### License
+MIT License
+
 ### Acknowledgements
 
 Inspired by the following fine projects, which use Vagrant/ansible:
