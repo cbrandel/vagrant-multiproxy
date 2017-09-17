@@ -5,23 +5,35 @@
     path: "{{tomcat_home_path}}"
     recurse: yes
     mode: "g+rx,o+rx"
+    owner: tomcat
+    group: tomcat
+
 - name: "override tomcat server.xml"
   template:
     src: "server.xml.j2"
     dest: "{{tomcat_home_path}}/current/conf/server.xml"
+    owner: tomcat
+    group: tomcat
 
 - name: "create webapp dir"
   file:
     state: directory
-    path: "{{tomcat_home_path}}/current/webapps/tester/"
+    path: "{{tomcat_home_path}}/webapps/tester/"
     owner: tomcat
     group: tomcat
 
 - name: "install webapp tester"
   unarchive:
     src: "{{webapp_tester_url}}"
-    dest: "{{tomcat_home_path}}/current/webapps/tester/"
+    dest: "{{tomcat_home_path}}/webapps/tester/"
     remote_src: yes
+    owner: tomcat
+    group: tomcat
+
+- name: "add context descriptor"
+  template:
+    src: "context.xml.j2"
+    dest: "{{tomcat_home_path}}/current/conf/Catalina/localhost/java#tester.xml"
     owner: tomcat
     group: tomcat
 
