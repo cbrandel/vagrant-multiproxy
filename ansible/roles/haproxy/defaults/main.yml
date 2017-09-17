@@ -25,3 +25,5 @@ haproxy_backend_servers: []
 
 # Extra global vars (see README for example usage).
 haproxy_global_vars: []
+
+iface: '{{ ansible_default_ipv4.interface }}'

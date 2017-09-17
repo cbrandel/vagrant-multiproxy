@@ -37,6 +37,6 @@ backend {{ haproxy_backend_name }}
     option httpchk {{ haproxy_backend_httpchk }}
 {% endif %}
     cookie SERVERID insert indirect
-{% for host in groups.webservers %}
-    server {{ host }} {{ hostvars[host]['ansible_' + iface].ipv4.address }}:{{ web_httpd_port }} cookie {{ host }} check
+{% for backend in haproxy_backend_servers %}
+    server {{ backend.name }} {{ backend.address }} cookie {{ backend.name }} check
 {% endfor %}

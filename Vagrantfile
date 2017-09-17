@@ -40,15 +40,33 @@ Vagrant.configure('2') do |config|
       v.customize ['modifyvm', :id, '--name', 'multiproxy-web']
       v.linked_clone = true
     end
+    machine.hostmanager.aliases = 'web.dmz'
+    config.vm.provision 'shell' do |s|
+      ssh_insecure_key = File.read("#{Dir.home}/.vagrant.d/insecure_private_key")
+      s.inline = <<-SHELL
+        echo '#{ssh_insecure_key}' > /home/vagrant/.ssh/id_rsa
+        chown vagrant /home/vagrant/.ssh/id_rsa
+        chmod 400 /home/vagrant/.ssh/id_rsa
+      SHELL
+    end
   end
   # Appserver machine
-  config.vm.define 'web' do |machine|
-    machine.vm.hostname = 'web'
+  config.vm.define 'app' do |machine|
+    machine.vm.hostname = 'app'
     machine.vm.network :private_network, ip: '192.168.50.32'
     machine.vm.provider 'virtualbox' do |v|
       v.customize ['modifyvm', :id, '--natdnshostresolver1', 'on']
       v.customize ['modifyvm', :id, '--name', 'multiproxy-app']
       v.linked_clone = true
+    end
+    machine.hostmanager.aliases = 'app.dmz'
+    config.vm.provision 'shell' do |s|
+      ssh_insecure_key = File.read("#{Dir.home}/.vagrant.d/insecure_private_key")
+      s.inline = <<-SHELL
+        echo '#{ssh_insecure_key}' > /home/vagrant/.ssh/id_rsa
+        chown vagrant /home/vagrant/.ssh/id_rsa
+        chmod 400 /home/vagrant/.ssh/id_rsa
+      SHELL
     end
   end
   # Loadbalancer machine
@@ -62,8 +80,16 @@ Vagrant.configure('2') do |config|
     end
     machine.hostmanager.aliases = 'mysite'
     # Provisioning
+    config.vm.provision 'shell' do |s|
+      ssh_insecure_key = File.read("#{Dir.home}/.vagrant.d/insecure_private_key")
+      s.inline = <<-SHELL
+        echo '#{ssh_insecure_key}' > /home/vagrant/.ssh/id_rsa
+        chown vagrant /home/vagrant/.ssh/id_rsa
+        chmod 400 /home/vagrant/.ssh/id_rsa
+      SHELL
+    end
     provisioning_path = ANSIBLE_PATH_ON_VM
-    machine.vm.provision 'ansible_local', run: "always" do |ansible|
+    machine.vm.provision 'ansible_local', run: 'always' do |ansible|
       ansible.compatibility_mode = '2.0'
       ansible.provisioning_path = provisioning_path
       ansible.inventory_path = File.join(provisioning_path, 'inventory')
@@ -74,7 +100,7 @@ Vagrant.configure('2') do |config|
       ansible.become         = true
       ansible.verbose        = true
       ansible.install        = true
-      ansible.limit          = 'lb'
+      ansible.limit          = 'all'
     end
   end
 

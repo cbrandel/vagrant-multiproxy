@@ -1,15 +1,47 @@
 ---
 # This role installs httpd
 
-- name: Install httpD
+- name: "Install php"
   yum:
     name: '{{ item }}'
     state: present
   with_items:
-   - httpd
    - php71w-fpm
    - php71w-opcache
    - php71w-common
+
+- name: "create vhosts"
+  file:
+    state: directory
+    path: "{{item.documentroot}}"
+    mode: 0755
+  with_items:
+    - "{{ apache_vhosts }}"
+
+- name: "create vhosts"
+  template:
+    src: index.html.j2
+    dest: "{{item.documentroot}}/index.html"
+    mode: 0755
+  with_items:
+    - "{{ apache_vhosts }}"
+
+- name: "install and configure apache"
+  include_role:
+    name: geerlingguy.apache
+
+- name: "add our unusual port setting"
+  lineinfile:
+    path: '/etc/httpd/conf/httpd.conf'
+    regexp: '^Listen {{ web_httpd_port }}'
+    line: 'Listen {{ web_httpd_port }} http'
+
+- name: "remove ssl config"
+  file:
+    state: absent
+    path: "/etc/httpd/conf.d/ssl.conf"
+
+- meta: flush_handlers
 
 - name: http service state
   service: name=httpd state=started enabled=yes

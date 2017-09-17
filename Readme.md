@@ -8,6 +8,7 @@ Inspired by the following fine projects, which use Vagrant/ansible:
 - https://github.com/ansible/ansible-examples
 - https://roots.io/trellis/
 - https://github.com/geerlingguy/ansible-role-haproxy
+- https://devops.stackexchange.com/questions/1237/how-do-i-configure-ssh-keys-in-a-vagrant-multi-machine-setup
 
 # Requirements
 Vagrant Plugins:

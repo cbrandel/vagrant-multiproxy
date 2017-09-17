@@ -1,1 +1,8 @@
 ---
+apache_listen_port: "{{ web_httpd_port }}"
+apache_vhosts:
+  - servername: "web.dmz"
+    documentroot: "/var/www/vhosts/web"
+
+apache_state: stopped
+apache_restart_state: stopped
