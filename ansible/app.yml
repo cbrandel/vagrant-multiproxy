@@ -5,4 +5,5 @@
   roles:
     - geerlingguy.java
     - web
+    - ansible-role-tomcat8
     - app

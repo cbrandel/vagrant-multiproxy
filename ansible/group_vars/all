@@ -1,6 +1,7 @@
 ---
 yum_install_packages:
   - git
+  - unzip
 
 web_httpd_port: 443
 app_httpd_port: 443

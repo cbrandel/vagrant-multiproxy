@@ -1,0 +1,29 @@
+---
+- name: "open up tomcat dir"
+  file:
+    state: directory
+    path: "{{tomcat_home_path}}"
+    recurse: yes
+    mode: "g+rx,o+rx"
+- name: "override tomcat server.xml"
+  template:
+    src: "server.xml.j2"
+    dest: "{{tomcat_home_path}}/current/conf/server.xml"
+
+- name: "create webapp dir"
+  file:
+    state: directory
+    path: "{{tomcat_home_path}}/current/webapps/tester/"
+    owner: tomcat
+    group: tomcat
+
+- name: "install webapp tester"
+  unarchive:
+    src: "{{webapp_tester_url}}"
+    dest: "{{tomcat_home_path}}/current/webapps/tester/"
+    remote_src: yes
+    owner: tomcat
+    group: tomcat
+
+- name: Start the tomcat service
+  service: name=tomcat state=restarted enabled=yes
