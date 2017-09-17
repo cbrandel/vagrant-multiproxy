@@ -28,6 +28,12 @@ frontend {{ haproxy_frontend_name }}
     bind {{ haproxy_frontend_bind_address }}:{{ haproxy_frontend_port }}
     mode {{ haproxy_frontend_mode }}
     default_backend {{ haproxy_backend_name }}
+    acl forwarded hdr_cnt(X-Forwarded-Host) gt 0
+    acl trusted src 127.0.0.0/24
+    http-request set-header X-Forwarded-Host %[req.hdr(Host)] unless forwarded trusted
+    http-request set-header X-Forwarded-Port 443
+    http-request set-header X-Forwarded-Proto https if { ssl_fc }
+    http-request set-header X-Forwarded-Proto http unless { ssl_fc }
 
 backend {{ haproxy_backend_name }}
     mode {{ haproxy_backend_mode }}

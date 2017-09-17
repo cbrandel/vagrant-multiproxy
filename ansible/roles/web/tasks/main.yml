@@ -6,7 +6,7 @@
     name: '{{ item }}'
     state: present
   with_items:
-   - php71w-fpm
+   - mod_php71w
    - php71w-opcache
    - php71w-common
 
@@ -18,10 +18,10 @@
   with_items:
     - "{{ apache_vhosts }}"
 
-- name: "create vhosts"
+- name: "copy vhosts files"
   template:
-    src: index.html.j2
-    dest: "{{item.documentroot}}/index.html"
+    src: index.php.j2
+    dest: "{{item.documentroot}}/index.php"
     mode: 0755
   with_items:
     - "{{ apache_vhosts }}"

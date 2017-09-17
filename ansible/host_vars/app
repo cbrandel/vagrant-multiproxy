@@ -7,3 +7,11 @@ tomcat_archive_name: "apache-tomcat-8.0.46"
 tomcat_archive_name_ext: ".tar.gz"
 tomcat_archive_url: "http://www-eu.apache.org/dist/tomcat/tomcat-8/v8.0.46/bin"
 java_home: /usr/
+
+apache_listen_port: "{{ app_httpd_port }}"
+apache_vhosts:
+  - servername: "app.dmz"
+    documentroot: "/var/www/vhosts/web"
+
+apache_state: stopped
+apache_restart_state: stopped
