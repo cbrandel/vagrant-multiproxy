@@ -30,6 +30,13 @@
     owner: tomcat
     group: tomcat
 
+- name: "create localhost dir"
+  file:
+    state: directory
+    path: "{{tomcat_home_path}}/current/conf/Catalina/localhost"
+    owner: tomcat
+    group: tomcat
+
 - name: "add context descriptor"
   template:
     src: "context.xml.j2"
