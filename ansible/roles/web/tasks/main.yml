@@ -18,13 +18,25 @@
   with_items:
     - "{{ apache_vhosts }}"
 
-- name: "copy vhosts files"
+- name: "install index file"
   template:
-    src: index.php.j2
-    dest: "{{item.documentroot}}/index.php"
-    mode: 0755
+    src: "index.html.j2"
+    dest: "{{item.documentroot}}/index.html"
   with_items:
     - "{{ apache_vhosts }}"
+
+- name: "get php tester"
+  git:
+    repo: 'https://github.com/cbrandel/php-tester'
+    dest: /tmp/php-tester
+
+- name: "install php tester"
+  synchronize:
+    src: /tmp/php-tester/public/
+    dest: "{{item.documentroot}}/{{item.php_context|default('')}}"
+  with_items:
+    - "{{ apache_vhosts }}"
+  delegate_to: "{{ansible_hostname}}"
 
 - name: "install and configure apache"
   include_role:

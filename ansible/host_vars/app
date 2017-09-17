@@ -12,6 +12,10 @@ apache_listen_port: "{{ app_httpd_port }}"
 apache_vhosts:
   - servername: "app.dmz"
     documentroot: "/var/www/vhosts/web"
+    php_context: php
+    contexts:
+      - php
+      - java
 
 apache_state: stopped
 apache_restart_state: stopped

@@ -3,6 +3,9 @@ apache_listen_port: "{{ web_httpd_port }}"
 apache_vhosts:
   - servername: "web.dmz"
     documentroot: "/var/www/vhosts/web"
+    contexts:
+      - php
+      - java
     extra_parameters: |
       RemoteIPHeader X-Forwarded-For
       RemoteIPInternalProxy 192.168.50.1
@@ -11,10 +14,10 @@ apache_vhosts:
       RemoteIPInternalProxy 192.168.50.32
       ProxyRequests Off
       ProxyPreserveHost Off
-      ProxyPass /php/ http://app.dmz:443/
-      ProxyPassReverse /php/ http://app.dmz:443/
-      ProxyPass /java/ http://app.dmz:443/
-      ProxyPassReverse /java/ http://app.dmz:443/
+      ProxyPass /php/ http://app.dmz:443/php/
+      ProxyPassReverse /php/ http://app.dmz:443/php/
+      ProxyPass /java/ http://app.dmz:443/java/
+      ProxyPassReverse /java/ http://app.dmz:443/java/
 
 apache_state: stopped
 apache_restart_state: stopped

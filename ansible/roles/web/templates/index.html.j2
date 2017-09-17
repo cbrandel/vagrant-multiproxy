@@ -1,0 +1,11 @@
+<html>
+<head></head>
+<body>
+<h1>Server: {{item.servername}}</h1>
+{% for vhost in apache_vhosts %}
+{% for context in vhost.contexts | default([]) %}
+<a href="/{{context}}/">{{context}} Context</a><br/>
+{% endfor %}
+{% endfor %}
+</body>
+</html>
